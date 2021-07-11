@@ -66,6 +66,10 @@ def checkWinner(board):
             winner = list(combo)[0]
             break
     return winner
+
+def displayWinner(board, playerNumber):
+    printBoard(board)
+    print(f'\nPlayer {playerNumber} wins!')
     
 def runGame():
     while(True):
@@ -73,17 +77,14 @@ def runGame():
         clear_output()
         player1Char, player2Char = startGame()
         winner = False
-        turn = 2
+        player = 2
         while(not winner):
             printBoard(board)
-            turn = 2 if turn == 1 else 1
-            requestPlayerInput(turn, player1Char if turn == 1 else player2Char, board)
+            player = 2 if player == 1 else 1
+            requestPlayerInput(player, player1Char if player == 1 else player2Char, board)
             winningChar = checkWinner(board)
-            if(winningChar == player1Char):
-                print('Player 1 wins!')
-                break
-            elif(winningChar == player2Char):
-                print('Player 2 wins!')
+            if(not winningChar == ' '):
+                displayWinner(board, player);
                 break
         
         userInput = input(f"\nPlay again? (Y/N)")
