@@ -1,6 +1,4 @@
-##from IPython.display import clear_output
 import os
-
 
 def startGame():
     player1char = input("Player 1, please select X or O: ")
