@@ -3,7 +3,6 @@ import os
 
 
 def startGame():
-    clear_output()
     player1char = input("Player 1, please select X or O: ")
 
     while(not player1char.lower() == "o" and not player1char.lower() == "x"):
@@ -39,11 +38,6 @@ def updateBoard(position, char, board):
     board[index1][index2] = char
 
 def getBoardValue(position, board):
-    index = 2
-    if(position in [1, 2, 3]):
-        index = 0
-    elif(position in [4, 5, 6]):
-        index = 1
     index1, index2 = getPositionIndex(position)
     return board[index1][index2] 
 
@@ -60,7 +54,7 @@ def checkWinner(board):
     hCombos = [set([hLine[0], hLine[1], hLine[2]]) for hLine in board]
     vCombos = []
     for i in range(0, 3):
-        set([board[0][i], board[1][i], board[2][i]])
+        vCombos.append(set([board[0][i], board[1][i], board[2][i]]))
     dCombos = [
         set([board[0][0], board[1][1], board[2][2]]),
         set([board[0][2], board[1][1], board[2][0]])
@@ -78,6 +72,7 @@ def checkWinner(board):
 def runGame():
     while(True):
         board = [[' ', ' ', ' '], [' ', ' ', ' '], [' ',' ',' ']]
+        clear_output()
         player1Char, player2Char = startGame()
         winner = False
         turn = 2
@@ -86,16 +81,15 @@ def runGame():
             turn = 2 if turn == 1 else 1
             requestPlayerInput(turn, player1Char if turn == 1 else player2Char, board)
             winningChar = checkWinner(board)
-            if(winningChar == ' '):
-                continue
-            elif(winningChar == player1Char):
+            if(winningChar == player1Char):
                 print('Player 1 wins!')
-            else:
+                break
+            elif(winningChar == player2Char):
                 print('Player 2 wins!')
+                break
+        
+        userInput = input(f"\nPlay again? (Y/N)")
+        if(not userInput.lower() == 'y' and not userInput.lower() == 'yes'):
             break
-
-       ## userInput = input(f"\nPlay again? (Y/N)")
-       ## if(not userInput.lower() == 'y' and not userInput.lower() == 'yes'):
-       ##     break
         
 runGame()
