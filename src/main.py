@@ -87,7 +87,7 @@ def runGame():
                 displayWinner(board, player);
                 break
         
-        userInput = input(f"\nPlay again? (Y/N)")
+        userInput = input(f"\nPlay again? (Y/N): ")
         if(not userInput.lower() == 'y' and not userInput.lower() == 'yes'):
             break
         
